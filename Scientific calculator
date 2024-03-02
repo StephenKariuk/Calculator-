@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewpoint" content="width=device-width, initial-scale =1.0">
+	<title>cipher calculator</title>
+	<style>
+	
+		* {
+			padding: 0;
+			margin: 0;
+	
+		}
+		#loading {
+		font-size: 23px;
+		font-weight: bolder;
+		font-family: cursive;
+		font-style: bold;
+		color: aqua;
+		position: relative;
+		z-index: 5;
+		top: -390;
+		right: -55;
+	}
+	.content {
+		height: 300px;
+		width: 230px;
+		border: solid 3px aqua;
+		margin: auto;
+		border-radius: 20px;
+		margin-top: 10;
+	}
+	#container1 {
+		display: none;
+		height: 330px;
+		width: 260px;
+		background: linear-gradient(20deg,#24003D,#3F0055 ,#0A0050);
+		border-radius: 20px;
+		margin: auto;
+		padding-top: 8px;
+		position: relative;
+		top:-470;
+	}
+	div {}
+	#circle1,#circle2,#circle3,#circle4 {
+		height: 170px;
+		width: 170px;
+		border-radius: 50%;
+		
+	}
+	#circle1 {
+		border: solid blue;
+		border-bottom-color: blue;
+		border-left-color: transparent;
+		border-right-color: transparent;
+		border-top-color: transparent;
+		border-width: 1px 2px 4px;
+		position: relative;
+		z-index: 1;
+		top: 55;
+		right: -30;
+		transform: rotate(0deg);
+		transform-origin: center;
+		animation: orbitt 1.5s linear infinite;
+	}
+	@keyframes orbit {
+			to {
+				transform: rotate(360deg);
+			}
+		}
+		@keyframes orbitt {
+			to {
+				transform: rotate(-360deg);
+			} 
+		} 
+	#circle2 {
+		border: solid green;
+		border-right-color: green;
+		border-left-color: transparent;
+		border-top-color: transparent;
+		border-bottom-color: transparent;
+		border-width: 1px 4px 1px;
+		position: relative;
+		z-index: 2;
+		top: -122;
+		right: -27;
+			transform: rotate(0deg);
+		transform-origin: center;
+		animation: orbit 1.5s linear infinite;
+	}
+	#circle3 {
+		border: solid red;
+		border-left-color: red;
+		border-right-color: transparent;
+		border-top-color: transparent;
+		border-bottom-color: transparent;
+		border-width: 1px 2px 3px 4px;
+		position: relative;
+		z-index: 3;
+		top: -290;
+		right: -27;
+			transform: rotate(0deg);
+		transform-origin: center;
+		animation: orbit 1.5s linear infinite;
+	}
+	#circle4 {
+		border: solid aqua;
+		border-top-color: aqua;
+		border-right-color: transparent;
+		border-left-color: transparent;
+		border-bottom-color: transparent;
+		border-width: 4px 3px 2px;
+		position: relative;
+		z-index: 4;
+		top: -497;
+		right: -22;
+			transform: rotate(0deg);
+		transform-origin: center;
+		animation: orbitt 1.5s linear infinite;
+	}
+		body {
+			background:black;
+			background-attachment: fixed;
+		}
+		.operator {
+			height: 50px;
+			width: 50px;
+			font-size: 20px;
+			font-family: palatino;
+			margin: auto;
+			margin-top: 5px;
+			margin-bottom: 5px;
+			cursor: pointer;
+			margin-right: 5px;
+			border-radius: 5px;
+			transform: scale (0,99);
+			border: transparent;
+			transition: .2s;
+			background-color: #5D1A75;
+			box-shadow: -3px -3px 4px #500057,-3px 3px 4px #500057,3px -3px 4px #500057,3px 3px 4px #500057;
+		}
+		#operator:hover {
+			background-color: skyblue;
+			font-family: Times New Roman;
+			font-size: 23px;
+			background: linear-gradient(20deg,blue,skyblue,aqua);
+		}
+		#exp {
+			height: 50px;
+			width: 50px;
+			font-size: 20px;
+			font-family: palatino;
+			margin: auto;
+			margin-top: 5px;
+			margin-bottom: 5px;
+			cursor: pointer;
+			margin-right: 5px;
+			border-radius: 5px;
+			transform: scale (0,99);
+			box-shadow: -3px -3px 4px #500057,-3px 3px 4px #500057,3px -3px 4px #500057,3px 3px 4px #500057;
+			transition: .2s;
+			background-color: #5D1A75;
+			border: transparent;
+			transition: .2s;
+
+		}
+		#exp:hover {
+			background: linear-gradient(20deg,blue,skyblue,aqua);
+		}
+		#button {
+			height: 50px;
+			width: 50px;
+			font-size: 20px;
+			font-family: palatino;
+			margin: auto;
+			margin-top: 5px;
+			margin-bottom: 5px;
+			cursor: pointer;
+			margin-right: 5px;
+			border-radius: 5px;
+			transform: scale (0,99);
+			border: transparent;
+			transition: .2s;
+			background-color: #5D1A75;
+		}
+		#button:hover {
+			font-size: 23px;
+			background: linear-gradient(60deg, aqua,dodgerblue,lightgreen);
+			font-family: Times New Roman;
+		}
+		#ac {
+			height: 50px;
+			width: 50px;
+			font-size: 20px;
+			font-family: palatino;
+			margin: auto;
+			margin-top: 5px;
+			margin-bottom: 5px;
+			cursor: pointer;
+			margin-right: 5px;
+			border-radius: 5px;
+			box-shadow: -2px -2px blue;
+			color: white;
+			background-color: #66001A;
+			border: transparent;
+			transition: .2s;
+			box-shadow: -3px -3px 4px #690054,-3px 3px 4px #690054,3px -3px 4px #690054,3px 3px 4px #690054;
+		}
+		#ac:hover {
+			font-size: 23px;
+			background-color: red;
+			font-family: Times New Roman;
+		}
+		#special {
+			height: 40px;
+			width: 110px;
+			padding: 3px;
+			margin-bottom: 2px;
+			border-radius: 7px;
+			font-size: 20px;
+			transition: .2s;
+			background: linear-gradient(20deg,#5D1A75,#5F0086,#4A005C);
+			box-shadow: -3px -3px 4px #4E0053,-3px 3px 4px #4E0053,3px -3px 4px #4E0053,3px 3px 4px #4E0053;
+		}
+		#special:hover {
+			background: linear-gradient(30deg, blue,aqua, maroon);
+			font-family: Times New Roman;
+		}
+		#screen {
+			border: solid black 8px;
+			width: 250px;
+			margin: auto;
+			border-radius: 10px;
+			margin-bottom: 10px;
+			background-color: grey;
+
+		}
+		#eqn {
+			border: transparent;
+			width: 235px;
+			height: 50px;
+			font-size: 22px;
+			color: blue;
+			margin: auto;
+			background-color: grey;
+			text-align: left;
+			font-family: palatino;
+		}
+		#ans {
+			border: transparent;
+			width: 235px;
+			height: 50px;
+			font-size: 20px;
+			color: green;
+			margin: auto;
+			background-color: grey;
+			overflow: scroll;
+			font-family: Times New Roman;
+		}
+
+		#buttons {
+			border: solid #700082 3px;
+			box-shadow: -3px -3px 4px #3C0B51,-3px 3px 4px #3C0B51,3px -3px 4px #3C0B51,3px 3px 4px #3C0B51;
+			width: 245px;
+			margin: auto;
+			margin-top: 5px;
+			margin-bottom: 5px;
+			border-radius: 10px;
+			background-color: transparent;
+			padding-left: 7;
+			display: block;
+		}
+		hr {
+			background-color: red;
+			color:red;
+			border-color: red;
+			width:50%;
+			align-self: center;
+			margin:auto;
+			height: 5px;
+			margin-bottom:10;
+			border-radius: 5px;
+		} 
+		#container {
+
+			width: 295px;
+			border: solid 10px #150049;
+			margin: auto;
+
+			border-radius: 10px;
+			background: linear-gradient(20deg, #150049,#0D0049);
+			height:560px;
+			padding-top:5;
+			margin-top: 30;
+			}
+		.special {
+			background-color: skyblue;
+			border: transparent;
+
+		}
+		#ac {}
+		.operator {
+			background-color: purple;
+			box-shadow: -3px -3px 4px 
+			#590070,-3px 3px 4px #590070,3px -3px 4px #590070,3px 3px 4px #590070;
+
+		}
+		.numerical {
+			background-color: lightgreen;
+			box-shadow: -3px -3px 4px #500057,-3px 3px 4px #500057,3px -3px 4px #500057,3px 3px 4px #500057;
+		}
+	}
+	marquee {
+		text-direction:
+	}
+	.operator:hover {
+		background-color: red;
+	}
+
+	.ac:hover {
+		background-color: red;
+	}
+
+	#marquee {
+	    margin-top:70;
+		font-size: 20px;
+		color: red;
+		font-family: Georgia;
+		background-color: transparent;
+		text-direction: rtl;
+		margin-left:20;
+	}
+	#body {
+		height: 700px;
+		width: 450px;
+		border: solid 5px black;
+		background: transparent;
+		margin: auto;
+		background:transparent;
+	}
+	#morebtn {
+		width: 55px;
+		height: 20px;
+		border: none;
+		border-bottom: solid 3px blue;
+		font-size: 17px;
+		font-family: palatino;
+		font-weight: bold;
+		background-color: transparent;
+		color:#7DFFE8;
+		margin-left: 50;
+		margin-bottom:5;
+		transform-origin: left;
+		transition: .8s;
+	}
+	#morebtn:hover {
+		border-radius: 20px;
+		background-color: aqua;
+		color:#290059;
+	} 
+		
+	.theme,.about {
+		border: none;
+		background-color: transparent;
+	} 
+		#about {
+		height: 330px;
+		width:260px;
+		padding:3 5;
+		top:230;
+		left:95;
+		border-radius: 20px;
+		background: linear-gradient(20deg,#24003D,#3F0055 ,#0A0050);
+		position: absolute;
+		transition: 4s;
+		display: none;
+
+	}
+	h3 {
+		text-align: center;
+		color: aqua;
+		font-family: cursive;
+		text-decoration: underline;
+		letter-spacing: 7px;
+		font-weight: bolder;
+	}
+	label {
+		font-style: italic;
+		color: green;
+		font-weight: bold;
+	}
+	span {
+		font-style: bold;
+		font-weight: bolder;
+	}
+	#aboutbtn {
+		height: 22px;
+		width: 63px;
+		background-color: transparent;
+		color:blue;
+		font-size: 20px;
+		font-family: Times New Roman;
+		border-color: transparent;
+		transition: 1s;
+		border-radius: 10px;
+		
+	}
+	.about:hover {
+		background-color: aqua;
+		color: dodgerblue;
+		border-color: blue;
+	}
+	#close {
+		height: 20px;
+		width: 20px;
+		border-radius: 50%;
+		text-align: center;
+		background-color: red;
+		color: white;
+		top: 1;
+		position: absolute;
+		right: 4;
+		margin-top:5;
+		margin-right: 3;
+	}
+	.theme {
+		width: 100px;
+		height: 40px;
+		border-radius: 5px;
+		color: blue;
+		font-size: 19px;
+		font-family: Times New Roman;
+		margin-bottom: 10;
+	}
+	#Customize {
+		height: 330px;
+		width: 220px;
+		border-radius: 20px;
+			background: linear-gradient(20deg,#24003D,#3F0055 ,#0A0050);
+		margin: auto;
+		padding: 3 3;
+		text-align: center;
+		position: absolute;
+		top:215;
+		left:95;
+		display: none;
+		border:none;
+		padding:3% 6%;
+		
+	}
+	.customt {
+		color: aqua;
+	}
+	#bgcolor {
+		height: 30px;
+		width: 70px;
+		margin-top: 2;
+		margin-right: 1px;
+		margin-top:15px;
+	}
+	#setbgcolor {
+		width: 80px;
+		height: 30px;
+		color: green;
+		margin-top: 2px;
+		font-size: 15px;
+		font-family: palatino;
+		margin:auto;
+		margin-top: 5px;
+	}
+	.aboutbtn,.theme,.help,.tips,.Converterbtn{
+		border:none;
+		height: 25px;
+		position: relative;
+		top:-10;
+		background-color: transparent;
+		font-size: 20px;
+		margin-bottom: 10px;
+		color:aqua;
+		margin-left:5px;
+		transition: .2s;
+	} 
+	button:hover {
+		color:blue;
+		z-index: 2;
+		background-color: aqua;
+		border-radius: 10px;
+	} 
+	#more {
+		height: 330px;
+		width:260px;
+			background: linear-gradient(20deg,#24003D,#3F0055 ,#0A0050);
+			border-radius: 20px;
+			margin:auto;
+			padding-top:14px;
+			position: relative;
+			top:-475;
+			display: none;
+	} 
+	#close {
+		height: 20px;
+		width: 20px;
+		border-radius: 50%;
+		text-align: center;
+		background-color: white;
+		color: red;
+		top: -3.5em;
+		right: -15.5em;
+		position:relative;
+		padding: 3 3;
+		margin-top:;
+		margin-right: 3;
+		border:none;
+		transition: .2s;
+	}
+	#close:hover {
+		background-color: red;
+		color:white;
+	} 
+		
+	.content {
+		height:300px;
+		width:230px;
+		border:solid 3px aqua;
+		margin:auto;
+		border-radius: 20px;
+		margin-top:10;
+		padd
+	} 
+	.morettl {
+		width:140px;
+		height: 24px;
+		background-color: aqua;
+		font-size: 20px;
+		font-family: palatino;
+		border-radius: 10px;
+		align-self: center;
+		position:relative;
+		top:-15;
+		right:-43;
+		text-align: center;
+	}
+</style>
+<script>
+	function newDate() {
+		var today = new Date();
+		document.getElementById('eqn').innerHTML = today;
+	}
+
+	function deleteDigit() {
+		var eqn = document.getElementById('eqn');
+		var inputValue = eqn.value;
+		eqn.value = inputValue.substring(0, inputValue.length - 1);
+	}
+	function AutoRefresh(t) {
+
+		setTimeout("location.reload(true);", t);
+
+	}
+	function openBox() {
+		document.getElementById("about").style.display = "block";
+	}
+	function closeBox() {
+		document.getElementById("about").style.display = "none";
+	}
+	function setBgcolor() {
+		var selectedColor = document.getElementById('bgcolor').value;
+		document.body.style.backgroundColor = selectedColor;
+
+	}
+	function openCustomize() {
+		document.getElementById("Customize").style.display = "block";
+	}
+	function closeCustomize(uuum) {
+		document.getElementById("Customize").style.display = "none";
+	}
+	function openMore() {
+		document.getElementById('more').style.display="block"
+	} 
+	function closeMore() {
+		document.getElementById('more').style.display='none';
+	}
+	function hidebuttons() {
+		document.getElementById('buttons').style.display="none";
+		
+	} 
+	function msg() {
+		alert("!Click the Longer Bar To Show Keypad!");
+	} 
+	function showbuttons() {
+		document.getElementById('buttons').style.display="block";
+	} 
+	function showloading() {
+		
+		document.getElementById('container1').style.display="block";
+	}
+	function hideLoading() {
+		setTimeout(
+			function() {
+				document.getElementById('container1').style.display='none';
+				document.getElementById('more').style.display="block";
+			},2500);
+	} 
+</script>
+</head>
+<body>
+
+<div id="body">
+	
+<div id="container">
+<span id="marquee">CIPHER CALC24</span>
+<div id="screen">
+<div id="inner">
+<form name="eqn">
+<TEXTAREA NAME="eqn" id="eqn"COLS="2" ROWS="3" WRAP="on" placeholder="EQUATION"></TEXTAREA>
+</form>
+
+<form name="ans">
+<textarea name="ans" id=ans rows="1" cols="2" placeholder="ANSWER"></textarea>
+</form>
+</div>
+</div>
+<hr onclick="hidebuttons(),msg()"/>
+<div id="buttons">
+<div class="inner">
+<input type="button" value="AC" onclick="eqn.eqn.value = ans.ans.value=' '"id="ac" class="ac" ondblclick="AutoRefresh()">
+<input type="button" value="DEL" onclick="deleteDigit() " id="ac" class="ac">
+<input type="button" value="^" onclick="eqn.eqn.value += '**' " id="operator" class="operator">
+<input type="button" value="/" onclick="eqn.eqn.value += '/' " id="operator"class="operator">
+<br>
+<input type="button" value="7" onclick="eqn.eqn.value += '7' " id="button" class="numerical">
+<input type="button" value="8" onclick="eqn.eqn.value += '8' "id="button"class="numerical">
+<input type="button" value="9" onclick="eqn.eqn.value += '9' " id="button" class="numerical">
+<input type="button"value="*" onclick="eqn.eqn.value += '*' " id="operator"class="operator">
+<br>
+
+<input type="button" value="4" onclick="eqn.eqn.value += '4' " id="button"class="numerical">
+<input type="button" value="5" onclick="eqn.eqn.value += '5' " id="button"class="numerical">
+<input type="button" value="6" onclick="eqn.eqn.value += '6' "id="button"class="numerical">
+
+<input type="button" value="-" onclick="eqn.eqn.value += '-' " id="operator"class="operator">
+
+<br>
+
+<input type="button" value="1" onclick="eqn.eqn.value += '1' "id="button"class="numerical">
+<input type="button" value="2" onclick="eqn.eqn.value += '2' "id="button"class="numerical">
+<input type="button" value="3" onclick="eqn.eqn.value += '3' "id="button"class="numerical">
+<input type="button" value="+" onclick="eqn.eqn.value +='+' " id="operator"class="operator">
+<br>
+<input type="button" value="0" onclick="eqn.eqn.value += '0' "id="button"class="numerical">
+<input type="button" value="E" onclick="eqn.eqn.value += 'e' "id="exp"class="exp">
+
+<input type="button" value="." onclick="eqn.eqn.value += '.' "id="button" class="numerical">
+
+<input type="button" value="=" onclick="ans.ans.value = eval(eqn.eqn.value) "id="operator"class="operator">     <br>
+<input type="button" value="=Now()" class="special" id="special" onclick="newDate()">
+<input type="button" value="Answer" class="special" id="special" onclick="eqn.eqn.value = ans.ans.value" ondblclick="eqn.eqn.value *= ans.ans.value">
+</div>
+</div>
+<hr style="width:70%" onclick="showbuttons(),hideLoading()"/>
+</div>
+</div>
+</div>
+
+</body>
+</html>
